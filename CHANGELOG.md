@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+_Nothing yet..._
+
+## 1.0.2 - 2017-11-14
+
 ### Fixed
 - Remove shebang from curl + eval use case 
 - Add shebang to cli specific build

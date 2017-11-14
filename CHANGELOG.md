@@ -6,7 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
-_Nothing yet..._
+### Fixed
+- The `files` array in `package.json` expects directories
 
 ## 1.0.2 - 2017-11-14
 

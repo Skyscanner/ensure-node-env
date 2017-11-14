@@ -21,6 +21,27 @@ Add the following to your `package.json`:
 
 Where the `node` and `npm` engine properties specify a valid semver range for Node and npm version respectively. 
 
+### Alternative install via npm
+
+First, install the package globally:
+
+```sh
+npm install --g ensure-node-env
+```
+
+Then add the following to your `package.json`:
+
+```sh
+  ...
+  "engines": {
+    "node": "^8.9.0",
+    "npm": "^5.5.1"
+  },
+  "scripts": {
+    "preinstall": "ensure-node-env",
+    ...
+```
+
 ## Guide
 
 Skyscanner Node development requires Node LTS and npm `^5.5.1`. [Nvm](https://github.com/creationix/nvm) users can run `nvm use` to switch to `lts/carbon`. [Nave](https://github.com/isaacs/nave) users can use `nave auto`. You can also download Node LTS using [the website](https://nodejs.org/en/). To install npm `^5.5.1`, run `npm install --global npm@^5.5.1`.

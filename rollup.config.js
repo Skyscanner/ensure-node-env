@@ -1,6 +1,5 @@
 import { minify } from 'uglify-es';
 import uglify from 'rollup-plugin-uglify';
-import shebang from 'rollup-plugin-shebang';
 import commonjs from 'rollup-plugin-commonjs';
 import resolve from 'rollup-plugin-node-resolve';
 
@@ -15,6 +14,5 @@ export default {
     resolve(),
     commonjs(),
     uglify({}, minify),
-    shebang(),
   ],
 };

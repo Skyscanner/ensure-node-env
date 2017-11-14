@@ -2,7 +2,6 @@
 {
   "extends": "skyscanner",
   "rules": {
-    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
-    "import/extensions": ["error", { "mjs": "never" }]
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
   }
 }

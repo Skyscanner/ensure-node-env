@@ -4,10 +4,11 @@
   "description": "A script that helps ensure you have the correct node & npm versions installed in your environment.",
   "main": "dist/index.js",
   "bin": {
-    "ensure-node-env": "./dist/index.js"
+    "ensure-node-env": "./dist/cli.js"
   },
   "files": [
-    "./dist/index.js"
+    "./dist/index.js",
+    "./dist/cli.js"
   ],
   "engines": {
     "node": "^8.9.0",
@@ -40,6 +41,7 @@
     "rollup": "^0.50.0",
     "rollup-plugin-commonjs": "^8.2.6",
     "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-shebang": "^0.1.4",
     "rollup-plugin-uglify": "^2.0.1",
     "semver": "^5.4.1",
     "uglify-es": "^3.1.6"

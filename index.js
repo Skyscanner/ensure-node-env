@@ -71,7 +71,7 @@ console.log('Checking node & npm versions...');
 console.log('');
 
 checkVersion('node', 'node --version');
-checkVersion('npm', 'npm --version');
+checkVersion('npm', 'npm -g --version');
 
 console.log('All good.  👍');
 console.log('');

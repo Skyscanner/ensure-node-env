@@ -6,7 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
-_Nothing yet..._
+### Fixed
+- Global npm is now forced with `-g`
 
 ## 1.0.3 - 2017-11-14
 

@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/Skyscanner/ensure-node-env.svg?branch=master)](https://travis-ci.org/Skyscanner/ensure-node-env)
 
-A script that helps ensure you have the correct node &amp; npm versions installed in your environment.
+A script that helps ensure you have the correct node &amp; npm versions installed globally in your environment.
 
 ## Usage
 
@@ -19,7 +19,7 @@ Add the following to your `package.json`:
     ...
 ```
 
-Where the `node` and `npm` engine properties specify a valid semver range for Node and npm version respectively. 
+Where the `node` and `npm` engine properties specify a valid semver range for Node and npm version respectively.
 
 ### Alternative install via npm
 

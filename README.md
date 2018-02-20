@@ -8,7 +8,7 @@ A script that helps ensure you have the correct node &amp; npm versions installe
 
 Add the following to your `package.json`:
 
-```sh
+```json
   ...
   "engines": {
     "node": "^8.9.0",
@@ -31,7 +31,7 @@ npm install -g ensure-node-env
 
 Then add the following to your `package.json`:
 
-```sh
+```json
   ...
   "engines": {
     "node": "^8.9.0",
@@ -39,6 +39,26 @@ Then add the following to your `package.json`:
   },
   "scripts": {
     "preinstall": "ensure-node-env",
+    ...
+```
+
+### Usage in npm projects that are published
+
+This script is designed to be used as a development-only preinstall check in the project root. For projects that are published and consumed in other projects you can use the following script as a `prepublish` step in your project:
+
+```json
+ ...
+  "scripts": {
+    "prepublish": "node -e \"$(curl -fsSL https://raw.githubusercontent.com/Skyscanner/ensure-node-env/master/dist/cleanup.js)\"",
+    ...
+```
+
+As a global npm dependency:
+
+```json
+  ...
+  "scripts": {
+    "prepublish": "cleanup-ensure-node-env",
     ...
 ```
 

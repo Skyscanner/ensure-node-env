@@ -6,7 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
-_Nothing yet..._
+### Added
+- `cleanup-ensure-node-env` cli tool and `dist/cleanup.js` cdn entrypoint 
+  - Useful as a prepublish step for dependencies
 
 ## 1.0.4 - 2018-01-04
 

@@ -56,6 +56,18 @@ const cleanupEntryPoints = [{
     uglify({}, minify),
     shebang(),
   ],
+}, {
+  input: 'cleanup-test.js',
+  output: {
+    file: 'dist/cleanup-test.js',
+    format: 'cjs',
+  },
+  external: ['os', 'fs', 'path', 'child_process'],
+  plugins: [
+    resolve(),
+    commonjs(),
+    uglify({}, minify),
+  ],
 }];
 
 export default [...indexEntryPoints, ...cleanupEntryPoints];

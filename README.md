@@ -58,7 +58,7 @@ As a global npm dependency:
 ```json
   ...
   "scripts": {
-    "preinstall": "cleanup-ensure-node-env",
+    "prepublish": "cleanup-ensure-node-env",
     ...
 ```
 

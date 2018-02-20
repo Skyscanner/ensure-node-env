@@ -38,7 +38,7 @@ const cleanup = () => {
   }
 
   try {
-    delete ((pkg || {}).scripts || {}).preinstall;
+    delete pkg.scripts.preinstall;
 
     fs.writeFileSync(
       pkgJsonPath,

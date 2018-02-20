@@ -4,7 +4,8 @@
   "description": "A script that helps ensure you have the correct node & npm versions installed in your environment.",
   "main": "./dist/index.js",
   "bin": {
-    "ensure-node-env": "./dist/cli.js"
+    "ensure-node-env": "./dist/cli.js",
+    "cleanup-ensure-node-env": "./dist/cleanup-cli.js"
   },
   "files": [
     "dist"

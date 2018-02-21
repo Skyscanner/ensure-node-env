@@ -8,7 +8,7 @@ A script that helps ensure you have the correct node &amp; npm versions installe
 
 Add the following to your `package.json`:
 
-```sh
+```json
   ...
   "engines": {
     "node": "^8.9.0",
@@ -31,7 +31,7 @@ npm install -g ensure-node-env
 
 Then add the following to your `package.json`:
 
-```sh
+```json
   ...
   "engines": {
     "node": "^8.9.0",
@@ -39,6 +39,26 @@ Then add the following to your `package.json`:
   },
   "scripts": {
     "preinstall": "ensure-node-env",
+    ...
+```
+
+
+### Usage in libraries
+
+This script is designed to be used as a development-only preinstall check in the project root. For libraries that are published and consumed in other projects it is considered good enough to include it as a pretest check:
+
+```sh
+npm install ensure-node-env --save-dev
+```
+
+```json
+  ...
+  "engines": {
+    "node": "^8.9.0",
+    "npm": "^5.5.1"
+  },
+  "scripts": {
+    "pretest": "ensure-node-env",
     ...
 ```
 

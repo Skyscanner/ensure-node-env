@@ -15,32 +15,11 @@ Add the following to your `package.json`:
     "npm": "^5.5.1"
   },
   "scripts": {
-    "preinstall": "node -e \"$(curl -fsSL https://raw.githubusercontent.com/Skyscanner/ensure-node-env/master/dist/index.js)\"",
+    "preinstall": "npx ensure-node-env",
     ...
 ```
 
 Where the `node` and `npm` engine properties specify a valid semver range for Node and npm version respectively.
-
-### Alternative install via npm
-
-First, install the package globally:
-
-```sh
-npm install -g ensure-node-env
-```
-
-Then add the following to your `package.json`:
-
-```json
-  ...
-  "engines": {
-    "node": "^8.9.0",
-    "npm": "^5.5.1"
-  },
-  "scripts": {
-    "preinstall": "ensure-node-env",
-    ...
-```
 
 
 ### Usage in libraries

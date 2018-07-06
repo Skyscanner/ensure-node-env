@@ -1,6 +1,6 @@
 # ensure-node-env
 
-[![Build Status](https://travis-ci.org/Skyscanner/ensure-node-env.svg?branch=master)](https://travis-ci.org/Skyscanner/ensure-node-env)
+[![Build Status](https://travis-ci.org/Skyscanner/ensure-node-env.svg?branch=master)](https://travis-ci.org/Skyscanner/ensure-node-env) [![Greenkeeper badge](https://badges.greenkeeper.io/Skyscanner/ensure-node-env.svg)](https://greenkeeper.io/)
 
 A script that helps ensure you have the correct node &amp; npm versions installed globally in your environment.
 

@@ -32,7 +32,9 @@ const checkVersion = (engineName, command) => {
   } catch (e) {
     console.log(`Unable to find ${pkgJsonPath}!  😱`);
     console.log('');
-    console.log('Please ensure that this script is executed in the same directory.');
+    console.log(
+      'Please ensure that this script is executed in the same directory.',
+    );
     console.log('');
     process.exit(1);
   }
@@ -42,7 +44,9 @@ const checkVersion = (engineName, command) => {
   try {
     expected = pkg.engines[engineName];
   } catch (e) {
-    console.log(`There is no engine named ${engineName} specified in package.json!  😱`);
+    console.log(
+      `There is no engine named ${engineName} specified in package.json!  😱`,
+    );
     console.log('');
     process.exit(1);
   }
@@ -50,7 +54,10 @@ const checkVersion = (engineName, command) => {
   let version = null;
 
   try {
-    version = execSync(command).toString().replace('v', '').trim();
+    version = execSync(command)
+      .toString()
+      .replace('v', '')
+      .trim();
   } catch (e) {
     console.log(`Unable to get ${engineName} version!  😱`);
     console.log('');
@@ -58,10 +65,15 @@ const checkVersion = (engineName, command) => {
   }
 
   if (!semver.satisfies(version, expected)) {
-    const guide = 'https://github.com/Skyscanner/ensure-node-env/blob/master/README.md#guide';
-    console.log(`Expected ${engineName} version to match ${expected}, but got ${version}.  😱`);
+    const guide =
+      'https://github.com/Skyscanner/ensure-node-env/blob/master/README.md#guide';
+    console.log(
+      `Expected ${engineName} version to match ${expected}, but got ${version}.  😱`,
+    );
     console.log('');
-    console.log(`Please follow Skyscanner's node environment guide (see ${guide}).`);
+    console.log(
+      `Please follow Skyscanner's node environment guide (see ${guide}).`,
+    );
     console.log('');
     process.exit(1);
   }

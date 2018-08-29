@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 1.0.6 - 2018-08-29
+
+### Fixed
+- Updated dependencies
+- Use terser instead of uglify-es as it is now deprecated
+
 ## 1.0.5 - 2018-07-06
 
 ### Fixed

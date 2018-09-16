@@ -33,7 +33,7 @@
   "devDependencies": {
     "eslint-config-skyscanner-with-prettier": "^0.3.0",
     "eslint_d": "^7.1.0",
-    "rollup": "^0.65.0",
+    "rollup": "^0.66.0",
     "rollup-plugin-commonjs": "^9.1.6",
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-terser": "^2.0.2",

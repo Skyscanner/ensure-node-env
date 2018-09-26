@@ -32,10 +32,10 @@
   "homepage": "https://github.com/Skyscanner/ensure-node-env#readme",
   "devDependencies": {
     "eslint-config-skyscanner-with-prettier": "^0.3.0",
-    "eslint_d": "^7.1.0",
-    "rollup": "^0.66.0",
-    "rollup-plugin-commonjs": "^9.1.6",
-    "rollup-plugin-node-resolve": "^3.3.0",
+    "eslint_d": "^7.1.1",
+    "rollup": "^0.66.2",
+    "rollup-plugin-commonjs": "^9.1.8",
+    "rollup-plugin-node-resolve": "^3.4.0",
     "rollup-plugin-terser": "^3.0.0",
     "semver": "^5.5.1"
   }

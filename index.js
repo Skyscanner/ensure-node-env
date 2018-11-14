@@ -54,7 +54,9 @@ const checkVersion = (engineName, command) => {
   let version = null;
 
   try {
-    version = execSync(command)
+    const local_bin_folder = execSync('npm bin').toString().trim();
+
+    version = execSync(command, { env: { PATH: process.env.PATH.replace(`${local_bin_folder}${path.delimiter}`, '') } } )
       .toString()
       .replace('v', '')
       .trim();

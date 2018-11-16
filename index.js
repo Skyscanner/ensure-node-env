@@ -21,6 +21,7 @@
 import path from 'path';
 import semver from 'semver';
 import { execSync } from 'child_process';
+import { EOL } from 'os';
 
 const checkVersion = (engineName, command) => {
   let pkg = null;
@@ -30,12 +31,10 @@ const checkVersion = (engineName, command) => {
     // eslint-disable-next-line global-require, import/no-dynamic-require
     pkg = require(pkgJsonPath);
   } catch (e) {
-    console.log(`Unable to find ${pkgJsonPath}!  😱`);
-    console.log('');
+    console.log(`Unable to find ${pkgJsonPath}!  😱${EOL}`);
     console.log(
-      'Please ensure that this script is executed in the same directory.',
+      `Please ensure that this script is executed in the same directory.${EOL}`,
     );
-    console.log('');
     process.exit(1);
   }
 
@@ -45,9 +44,8 @@ const checkVersion = (engineName, command) => {
     expected = pkg.engines[engineName];
   } catch (e) {
     console.log(
-      `There is no engine named ${engineName} specified in package.json!  😱`,
+      `There is no engine named "${engineName}" specified in package.json!  😱${EOL}`,
     );
-    console.log('');
     process.exit(1);
   }
 
@@ -70,8 +68,7 @@ const checkVersion = (engineName, command) => {
       .replace('v', '')
       .trim();
   } catch (e) {
-    console.log(`Unable to get ${engineName} version!  😱`);
-    console.log('');
+    console.log(`Unable to get ${engineName} version!  😱${EOL}`);
     process.exit(1);
   }
 
@@ -79,22 +76,18 @@ const checkVersion = (engineName, command) => {
     const guide =
       'https://github.com/Skyscanner/ensure-node-env/blob/master/README.md#guide';
     console.log(
-      `Expected ${engineName} version to match ${expected}, but got ${version}.  😱`,
+      `Expected ${engineName} version to match ${expected}, but got ${version}.  😱${EOL}`,
     );
-    console.log('');
     console.log(
-      `Please follow Skyscanner's node environment guide (see ${guide}).`,
+      `Please follow Skyscanner's node environment guide (see ${guide}).${EOL}`,
     );
-    console.log('');
     process.exit(1);
   }
 };
 
-console.log('Checking node & npm versions...');
-console.log('');
+console.log(`Checking node & npm versions...${EOL}`);
 
 checkVersion('node', 'node --version');
 checkVersion('npm', 'npm -g --version');
 
-console.log('All good.  👍');
-console.log('');
+console.log(`${EOL}All good.  👍${EOL}`);

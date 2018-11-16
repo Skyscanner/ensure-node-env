@@ -34,7 +34,7 @@ userInput
   .parse(process.argv);
 
 const getVersion = ({ command, localBinFolder, global = true }) => {
-  let env = { PATH: process.env.PATH };
+  const env = { PATH: process.env.PATH };
 
   if (global) {
     env.PATH = env.PATH.replace(`${localBinFolder}${path.delimiter}`, '');
@@ -72,7 +72,6 @@ const checkVersion = (engineName, command) => {
 
   const expected = pkg.engines[engineName];
 
-
   let globalVersion = null;
   let localVersion = null;
   let usedVersion = null;
@@ -95,7 +94,7 @@ const checkVersion = (engineName, command) => {
     console.log(
       `╰─ Global ${engineName} version:\t${globalVersion}\t${
         globalVersionValid ? '✅️' : '❌️'
-        }`,
+      }`,
     );
 
     if (hasLocalVersion) {

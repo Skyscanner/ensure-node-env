@@ -21,7 +21,32 @@
 import path from 'path';
 import semver from 'semver';
 import { execSync } from 'child_process';
+import { existsSync } from 'fs';
 import { EOL } from 'os';
+
+import userInput from 'commander';
+
+userInput
+  .option(
+    '-i, --ignore-local-bin',
+    'Ignore any binaries in ./node_modules/.bin',
+  )
+  .parse(process.argv);
+
+const getVersion = ({ command, localBinFolder, global = true }) => {
+  let env = { PATH: process.env.PATH };
+
+  if (global) {
+    env.PATH = env.PATH.replace(`${localBinFolder}${path.delimiter}`, '');
+  } else {
+    env.PATH = `${localBinFolder}${path.delimiter}${env.PATH}`;
+  }
+
+  return execSync(command, { env })
+    .toString()
+    .replace('v', '')
+    .trim();
+};
 
 const checkVersion = (engineName, command) => {
   let pkg = null;
@@ -47,32 +72,59 @@ const checkVersion = (engineName, command) => {
 
   const expected = pkg.engines[engineName];
 
+
+  let globalVersion = null;
+  let localVersion = null;
+  let usedVersion = null;
+  let globalVersionValid = null;
+  let localVersionValid = null;
+
   try {
     const localBinFolder = execSync('npm bin')
       .toString()
       .trim();
 
-    version = execSync(command, {
-      env: {
-        PATH: process.env.PATH.replace(
-          `${localBinFolder}${path.delimiter}`,
-          '',
-        ),
-      },
-    })
-      .toString()
-      .replace('v', '')
-      .trim();
+    const hasLocalVersion = existsSync(
+      `${localBinFolder}${path.sep}${engineName}`,
+    );
+
+    globalVersion = getVersion({ command, localBinFolder });
+    globalVersionValid = semver.satisfies(globalVersion, expected);
+
+    console.log(`Expected ${engineName} version:\t${expected}`);
+    console.log(
+      `╰─ Global ${engineName} version:\t${globalVersion}\t${
+        globalVersionValid ? '✅️' : '❌️'
+        }`,
+    );
+
+    if (hasLocalVersion) {
+      localVersion = getVersion({ command, localBinFolder, global: false });
+      localVersionValid = semver.satisfies(localVersion, expected);
+      console.log(
+        `╰─ Local ${engineName} version:\t${localVersion}\t${
+          localVersionValid ? '✅️' : '❌️'
+        } (from ${localBinFolder})`,
+      );
+    }
+
+    if (userInput.ignoreLocalBin) {
+      usedVersion = globalVersion;
+    } else {
+      usedVersion = localVersion || globalVersion;
+    }
+
+    console.log(`╰─ (using: ${usedVersion})${EOL}`);
   } catch (e) {
     console.log(`Unable to get ${engineName} version!  😱${EOL}`);
     process.exit(1);
   }
 
-  if (!semver.satisfies(version, expected)) {
+  if (!semver.satisfies(usedVersion, expected)) {
     const guide =
       'https://github.com/Skyscanner/ensure-node-env/blob/master/README.md#guide';
     console.log(
-      `Expected ${engineName} version to match ${expected}, but got ${version}.  😱${EOL}`,
+      `Expected ${engineName} version to match ${expected}, but got ${usedVersion}.  😱${EOL}`,
     );
     console.log(
       `Please follow Skyscanner's node environment guide (see ${guide}).${EOL}`,

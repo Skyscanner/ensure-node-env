@@ -9,7 +9,7 @@ export default [
       file: 'dist/index.js',
       format: 'cjs',
     },
-    external: ['path', 'child_process'],
+    external: ['path', 'child_process', 'os', 'fs', 'events', 'util'],
     plugins: [resolve(), commonjs(), terser()],
   },
   {
@@ -19,7 +19,7 @@ export default [
       format: 'cjs',
       banner: '#!/usr/bin/env node',
     },
-    external: ['path', 'child_process'],
+    external: ['path', 'child_process', 'os', 'fs', 'events', 'util'],
     plugins: [resolve(), commonjs(), terser()],
   },
 ];

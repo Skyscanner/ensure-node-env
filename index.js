@@ -38,18 +38,14 @@ const checkVersion = (engineName, command) => {
     process.exit(1);
   }
 
-  let expected = null;
-
-  try {
-    expected = pkg.engines[engineName];
-  } catch (e) {
+  if (!pkg.engines || !pkg.engines[engineName]) {
     console.log(
       `There is no engine named "${engineName}" specified in package.json!  😱${EOL}`,
     );
     process.exit(1);
   }
 
-  let version = null;
+  const expected = pkg.engines[engineName];
 
   try {
     const localBinFolder = execSync('npm bin')

@@ -31,7 +31,16 @@ userInput
     '-i, --ignore-local-bin',
     'Ignore any binaries in ./node_modules/.bin',
   )
+  .option(
+    '-v, --verbose',
+    'Prints information about all the binaries detected',
+  )
   .parse(process.argv);
+
+
+if (!userInput.verbose) {
+  console.log = () => {};
+}
 
 const getVersion = ({ command, localBinFolder, global = true }) => {
   const env = { PATH: process.env.PATH };
@@ -56,8 +65,8 @@ const checkVersion = (engineName, command) => {
     // eslint-disable-next-line global-require, import/no-dynamic-require
     pkg = require(pkgJsonPath);
   } catch (e) {
-    console.log(`Unable to find ${pkgJsonPath}!  😱${EOL}`);
-    console.log(
+    console.error(`Unable to find ${pkgJsonPath}!  😱${EOL}`);
+    console.error(
       `Please ensure that this script is executed in the same directory.${EOL}`,
     );
     process.exit(1);
@@ -115,26 +124,26 @@ const checkVersion = (engineName, command) => {
 
     console.log(`╰─ (using: ${usedVersion})${EOL}`);
   } catch (e) {
-    console.log(`Unable to get ${engineName} version!  😱${EOL}`);
+    console.error(`Unable to get ${engineName} version!  😱${EOL}`);
     process.exit(1);
   }
 
   if (!semver.satisfies(usedVersion, expected)) {
     const guide =
       'https://github.com/Skyscanner/ensure-node-env/blob/master/README.md#guide';
-    console.log(
+    console.error(
       `Expected ${engineName} version to match ${expected}, but got ${usedVersion}.  😱${EOL}`,
     );
-    console.log(
+    console.error(
       `Please follow Skyscanner's node environment guide (see ${guide}).${EOL}`,
     );
     process.exit(1);
   }
 };
 
-console.log(`Checking node & npm versions...${EOL}`);
+console.info(`Checking node & npm versions...${EOL}`);
 
 checkVersion('node', 'node --version');
 checkVersion('npm', 'npm -g --version');
 
-console.log(`${EOL}All good.  👍${EOL}`);
+console.info(`${EOL}All good.  👍${EOL}`);

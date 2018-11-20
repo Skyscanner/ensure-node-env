@@ -31,12 +31,8 @@ userInput
     '-i, --ignore-local-bin',
     'Ignore any binaries in ./node_modules/.bin',
   )
-  .option(
-    '-v, --verbose',
-    'Prints information about all the binaries detected',
-  )
+  .option('-v, --verbose', 'Prints information about all the binaries detected')
   .parse(process.argv);
-
 
 if (!userInput.verbose) {
   console.log = () => {};

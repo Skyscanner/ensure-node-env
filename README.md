@@ -19,15 +19,8 @@ Add the following to your `package.json`:
     ...
 ```
 
-Where the `node` and `npm` engine properties specify a valid semver range for Node and npm versions, respectively.
+Where the `node` and `npm` engine properties specify a valid semver range for Node and npm version respectively.
 
-> By default, if you have a `node` or `npm` binary installed locally to the project (thus ending up
-in `./node_modules/.bin`), it will take precedence. If you wanto to check against a globally installed
-version instead, you can pass the `--ignore-local-bin` parameter (`-i` for short).
-> 
-> It's worth noting that, while you may not be directly depending on `node` or `npm` packages, you may
-still have them as transitive dependencies - in any case, `ensure-node-env` will show which one is being considered
-and where it comes from.
 
 ### Usage in libraries
 

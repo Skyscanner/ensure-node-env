@@ -21,6 +21,53 @@
 import path from 'path';
 import semver from 'semver';
 import { execSync } from 'child_process';
+import { existsSync } from 'fs';
+import { EOL } from 'os';
+
+import userInput from 'commander';
+
+// This is a workaround for an issue in commander's argument parser.
+// See https://github.com/tj/commander.js/issues/512
+const getNormalisedArgs = () => {
+  const args = process.argv;
+
+  // Detect execution without a script (e.g. node -e <input>)
+  // and insert a second argument when appropriate.
+  // For more info about the defaults, see https://nodejs.org/docs/latest-v8.x/api/process.html#process_process_argv
+  if (!process.mainModule) {
+    const execPath = args.shift();
+    args.unshift(execPath, module.filename);
+  }
+
+  return args;
+};
+
+userInput
+  .option(
+    '-i, --ignore-local-bin',
+    'Ignore any binaries in ./node_modules/.bin',
+  )
+  .option('-v, --verbose', 'Prints information about all the binaries detected')
+  .parse(getNormalisedArgs());
+
+if (!userInput.verbose) {
+  console.log = () => {};
+}
+
+const getVersion = ({ command, localBinFolder, global = true }) => {
+  const env = { PATH: process.env.PATH };
+
+  if (global) {
+    env.PATH = env.PATH.replace(`${localBinFolder}${path.delimiter}`, '');
+  } else {
+    env.PATH = `${localBinFolder}${path.delimiter}${env.PATH}`;
+  }
+
+  return execSync(command, { env })
+    .toString()
+    .replace('v', '')
+    .trim();
+};
 
 const checkVersion = (engineName, command) => {
   let pkg = null;
@@ -30,60 +77,85 @@ const checkVersion = (engineName, command) => {
     // eslint-disable-next-line global-require, import/no-dynamic-require
     pkg = require(pkgJsonPath);
   } catch (e) {
-    console.log(`Unable to find ${pkgJsonPath}!  😱`);
-    console.log('');
-    console.log(
-      'Please ensure that this script is executed in the same directory.',
+    console.error(`Unable to find ${pkgJsonPath}!  😱${EOL}`);
+    console.error(
+      `Please ensure that this script is executed in the same directory.${EOL}`,
     );
-    console.log('');
     process.exit(1);
   }
 
-  let expected = null;
-
-  try {
-    expected = pkg.engines[engineName];
-  } catch (e) {
+  if (!pkg.engines || !pkg.engines[engineName]) {
     console.log(
-      `There is no engine named ${engineName} specified in package.json!  😱`,
+      `There is no engine named "${engineName}" specified in package.json!  😱${EOL}`,
     );
-    console.log('');
     process.exit(1);
   }
 
-  let version = null;
+  const expected = pkg.engines[engineName];
+
+  let globalVersion = null;
+  let localVersion = null;
+  let usedVersion = null;
+  let globalVersionValid = null;
+  let localVersionValid = null;
 
   try {
-    version = execSync(command)
+    const localBinFolder = execSync('npm bin')
       .toString()
-      .replace('v', '')
       .trim();
+
+    const hasLocalVersion = existsSync(
+      `${localBinFolder}${path.sep}${engineName}`,
+    );
+
+    globalVersion = getVersion({ command, localBinFolder });
+    globalVersionValid = semver.satisfies(globalVersion, expected);
+
+    console.log(`Expected ${engineName} version:\t${expected}`);
+    console.log(
+      `╰─ Global ${engineName} version:\t${globalVersion}\t${
+        globalVersionValid ? '✅️' : '❌️'
+      }`,
+    );
+
+    if (hasLocalVersion) {
+      localVersion = getVersion({ command, localBinFolder, global: false });
+      localVersionValid = semver.satisfies(localVersion, expected);
+      console.log(
+        `╰─ Local ${engineName} version:\t${localVersion}\t${
+          localVersionValid ? '✅️' : '❌️'
+        } (from ${localBinFolder})`,
+      );
+    }
+
+    if (userInput.ignoreLocalBin) {
+      usedVersion = globalVersion;
+    } else {
+      usedVersion = localVersion || globalVersion;
+    }
+
+    console.log(`╰─ (using: ${usedVersion})${EOL}`);
   } catch (e) {
-    console.log(`Unable to get ${engineName} version!  😱`);
-    console.log('');
+    console.error(`Unable to get ${engineName} version!  😱${EOL}`);
     process.exit(1);
   }
 
-  if (!semver.satisfies(version, expected)) {
+  if (!semver.satisfies(usedVersion, expected)) {
     const guide =
       'https://github.com/Skyscanner/ensure-node-env/blob/master/README.md#guide';
-    console.log(
-      `Expected ${engineName} version to match ${expected}, but got ${version}.  😱`,
+    console.error(
+      `Expected ${engineName} version to match ${expected}, but got ${usedVersion}.  😱${EOL}`,
     );
-    console.log('');
-    console.log(
-      `Please follow Skyscanner's node environment guide (see ${guide}).`,
+    console.error(
+      `Please follow Skyscanner's node environment guide (see ${guide}).${EOL}`,
     );
-    console.log('');
     process.exit(1);
   }
 };
 
-console.log('Checking node & npm versions...');
-console.log('');
+console.info(`Checking node & npm versions...${EOL}`);
 
 checkVersion('node', 'node --version');
 checkVersion('npm', 'npm -g --version');
 
-console.log('All good.  👍');
-console.log('');
+console.info(`${EOL}All good.  👍${EOL}`);

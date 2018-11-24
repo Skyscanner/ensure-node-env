@@ -21,6 +21,17 @@ Add the following to your `package.json`:
 
 Where the `node` and `npm` engine properties specify a valid semver range for Node and npm version respectively.
 
+> By default, if you have a `node` or `npm` binary installed locally to the project (thus ending up
+in `./node_modules/.bin`), it will take precedence. If you wanto to check against a globally installed
+version instead, you can pass the `--ignore-local-bin` parameter (`-i` for short).
+>
+> It's worth noting that, while you may not be directly depending on `node` or `npm` packages, you may
+still have them as transitive dependencies - in any case, `ensure-node-env` will show which one is being considered
+and where it comes from.
+
+By default, the script's output is minimal. If you want it to display more information, such as the exact 
+versions being compared, you can pass the `--verbose` parameter (`-v` for short).
+
 ### Usage in libraries
 
 This script is designed to be used as a development-only preinstall check in the project root. For libraries that are published and consumed in other projects it is considered good enough to include it as a pretest check:

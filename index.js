@@ -148,6 +148,13 @@ const checkVersion = (engineName, command) => {
     logger.error(
       `Expected ${engineName} version to match ${expected}, but got ${usedVersion}.  😱${EOL}`,
     );
+
+    if (!userInput.verbose) {
+      logger.error(
+        `(pass the --verbose flag to the script for a more detailed output)${EOL}`,
+      );
+    }
+
     logger.error(
       `Please follow Skyscanner's node environment guide (see ${guide}).${EOL}`,
     );

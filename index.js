@@ -50,8 +50,10 @@ userInput
   .option('-v, --verbose', 'Prints information about all the binaries detected')
   .parse(getNormalisedArgs());
 
+const logger = console;
+
 if (!userInput.verbose) {
-  console.log = () => {};
+  logger.debug = () => {};
 }
 
 const getVersion = ({ command, localBinFolder, global = true }) => {
@@ -77,15 +79,15 @@ const checkVersion = (engineName, command) => {
     // eslint-disable-next-line global-require, import/no-dynamic-require
     pkg = require(pkgJsonPath);
   } catch (e) {
-    console.error(`Unable to find ${pkgJsonPath}!  😱${EOL}`);
-    console.error(
+    logger.error(`Unable to find ${pkgJsonPath}!  😱${EOL}`);
+    logger.error(
       `Please ensure that this script is executed in the same directory.${EOL}`,
     );
     process.exit(1);
   }
 
   if (!pkg.engines || !pkg.engines[engineName]) {
-    console.log(
+    logger.error(
       `There is no engine named "${engineName}" specified in package.json!  😱${EOL}`,
     );
     process.exit(1);
@@ -111,8 +113,8 @@ const checkVersion = (engineName, command) => {
     globalVersion = getVersion({ command, localBinFolder });
     globalVersionValid = semver.satisfies(globalVersion, expected);
 
-    console.log(`Expected ${engineName} version:\t${expected}`);
-    console.log(
+    logger.debug(`Expected ${engineName} version:\t${expected}`);
+    logger.debug(
       `╰─ Global ${engineName} version:\t${globalVersion}\t${
         globalVersionValid ? '✅️' : '❌️'
       }`,
@@ -121,7 +123,7 @@ const checkVersion = (engineName, command) => {
     if (hasLocalVersion) {
       localVersion = getVersion({ command, localBinFolder, global: false });
       localVersionValid = semver.satisfies(localVersion, expected);
-      console.log(
+      logger.debug(
         `╰─ Local ${engineName} version:\t${localVersion}\t${
           localVersionValid ? '✅️' : '❌️'
         } (from ${localBinFolder})`,
@@ -134,28 +136,28 @@ const checkVersion = (engineName, command) => {
       usedVersion = localVersion || globalVersion;
     }
 
-    console.log(`╰─ (using: ${usedVersion})${EOL}`);
+    logger.debug(`╰─ (using: ${usedVersion})${EOL}`);
   } catch (e) {
-    console.error(`Unable to get ${engineName} version!  😱${EOL}`);
+    logger.error(`Unable to get ${engineName} version!  😱${EOL}`);
     process.exit(1);
   }
 
   if (!semver.satisfies(usedVersion, expected)) {
     const guide =
       'https://github.com/Skyscanner/ensure-node-env/blob/master/README.md#guide';
-    console.error(
+    logger.error(
       `Expected ${engineName} version to match ${expected}, but got ${usedVersion}.  😱${EOL}`,
     );
-    console.error(
+    logger.error(
       `Please follow Skyscanner's node environment guide (see ${guide}).${EOL}`,
     );
     process.exit(1);
   }
 };
 
-console.info(`Checking node & npm versions...${EOL}`);
+logger.info(`Checking node & npm versions...${EOL}`);
 
 checkVersion('node', 'node --version');
 checkVersion('npm', 'npm -g --version');
 
-console.info(`${EOL}All good.  👍${EOL}`);
+logger.info(`${EOL}All good.  👍${EOL}`);

@@ -24,35 +24,14 @@ import { execSync } from 'child_process';
 import { existsSync } from 'fs';
 import { EOL } from 'os';
 
-import userInput from 'commander';
-
-// This is a workaround for an issue in commander's argument parser.
-// See https://github.com/tj/commander.js/issues/512
-const getNormalisedArgs = () => {
-  const args = process.argv;
-
-  // Detect execution without a script (e.g. node -e <input>)
-  // and insert a second argument when appropriate.
-  // For more info about the defaults, see https://nodejs.org/docs/latest-v8.x/api/process.html#process_process_argv
-  if (!process.mainModule) {
-    const execPath = args.shift();
-    args.unshift(execPath, module.filename);
-  }
-
-  return args;
-};
-
-userInput
-  .option(
-    '-i, --ignore-local-bin',
-    'Ignore any binaries in ./node_modules/.bin',
-  )
-  .option('-v, --verbose', 'Prints information about all the binaries detected')
-  .parse(getNormalisedArgs());
+const { argv } = process;
+const verbose = argv.indexOf('-v') !== -1 || argv.indexOf('--verbose') !== -1;
+const ignoreLocalBin =
+  argv.indexOf('-i') !== -1 || argv.indexOf('--ignore-local-bin') !== -1;
 
 const logger = console;
 
-if (!userInput.verbose) {
+if (!verbose) {
   logger.debug = () => {};
 }
 
@@ -130,7 +109,7 @@ const checkVersion = (engineName, command) => {
       );
     }
 
-    if (userInput.ignoreLocalBin) {
+    if (ignoreLocalBin) {
       usedVersion = globalVersion;
     } else {
       usedVersion = localVersion || globalVersion;
@@ -149,7 +128,7 @@ const checkVersion = (engineName, command) => {
       `Expected ${engineName} version to match ${expected}, but got ${usedVersion}.  😱${EOL}`,
     );
 
-    if (!userInput.verbose) {
+    if (!verbose) {
       logger.error(
         `(pass the --verbose flag to the script for a more detailed output)${EOL}`,
       );
@@ -167,4 +146,4 @@ logger.info(`Checking node & npm versions...${EOL}`);
 checkVersion('node', 'node --version');
 checkVersion('npm', 'npm -g --version');
 
-logger.info(`${EOL}All good.  👍${EOL}`);
+logger.info(`All good.  👍${EOL}`);

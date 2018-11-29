@@ -29,11 +29,11 @@ const verbose = argv.indexOf('-v') !== -1 || argv.indexOf('--verbose') !== -1;
 const ignoreLocalBin =
   argv.indexOf('-i') !== -1 || argv.indexOf('--ignore-local-bin') !== -1;
 
-const logger = console;
-
-if (!verbose) {
-  logger.debug = () => {};
-}
+const logger = {
+  info: console.info,
+  debug: verbose ? console.debug : () => null,
+  error: console.error,
+};
 
 const getVersion = ({ command, localBinFolder, global = true }) => {
   const env = { PATH: process.env.PATH };

@@ -11,7 +11,7 @@ Add the following to your `package.json`:
 ```json
   ...
   "engines": {
-    "node": "^8.9.0",
+    "node": "^10.14.1",
     "npm": "^6.4.1"
   },
   "scripts": {
@@ -20,7 +20,6 @@ Add the following to your `package.json`:
 ```
 
 Where the `node` and `npm` engine properties specify a valid semver range for Node and npm version respectively.
-
 
 ### Usage in libraries
 
@@ -33,7 +32,7 @@ npm install ensure-node-env --save-dev
 ```json
   ...
   "engines": {
-    "node": "^8.9.0",
+    "node": "^10.14.1",
     "npm": "^6.4.1"
   },
   "scripts": {
@@ -43,4 +42,4 @@ npm install ensure-node-env --save-dev
 
 ## Guide
 
-Skyscanner Node development requires Node LTS and npm `^6.4.1`. [Nvm](https://github.com/creationix/nvm) users can run `nvm use` to switch to `lts/carbon`. [Nave](https://github.com/isaacs/nave) users can use `nave auto`. You can also download Node LTS using [the website](https://nodejs.org/en/). To install npm `^6.4.1`, run `npm install -g npm@^6.4.1`.
+Skyscanner Node development requires Node LTS and npm `^6.4.1`. [Nvm](https://github.com/creationix/nvm) users can run `nvm use` to switch to `lts/dubnium`. [Nave](https://github.com/isaacs/nave) users can use `nave auto`. You can also download Node LTS using [the website](https://nodejs.org/en/).

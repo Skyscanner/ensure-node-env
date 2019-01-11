@@ -36,7 +36,9 @@
     "rollup": "^0.67.1",
     "rollup-plugin-commonjs": "^9.1.8",
     "rollup-plugin-node-resolve": "^3.4.0",
-    "rollup-plugin-terser": "^3.0.0",
+    "rollup-plugin-terser": "^3.0.0"
+  },
+  "dependencies": {
     "semver": "^5.5.1"
   }
 }

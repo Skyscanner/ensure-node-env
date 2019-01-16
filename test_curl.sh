@@ -6,8 +6,7 @@
 set -e
 
 if [ $CI ] ; then
-  BRANCH=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
-  URL="https://raw.githubusercontent.com/Skyscanner/ensure-node-env/$BRANCH/dist/index.js"
+  URL="https://raw.githubusercontent.com/Skyscanner/ensure-node-env/$TRAVIS_COMMIT/dist/index.js"
   echo "Evaluating script at $URL"
   node -e "$(curl -fsSL $URL)"
   exit 0

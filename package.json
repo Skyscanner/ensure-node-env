@@ -18,7 +18,7 @@
     "lint:fix": "eslint . --fix",
     "build": "rollup --config",
     "pretest": "npm run lint && npm run build",
-    "test": "node dist/index.js"
+    "test": "node dist/index.js && ./test_curl.sh"
   },
   "repository": {
     "type": "git",

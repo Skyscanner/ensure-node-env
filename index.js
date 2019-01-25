@@ -36,7 +36,7 @@ const logger = {
 };
 
 const getVersion = ({ command, localBinFolder, global = true }) => {
-  const env = { PATH: process.env.PATH };
+  const env = { ...process.env };
 
   if (global) {
     env.PATH = env.PATH.replace(`${localBinFolder}${path.delimiter}`, '');

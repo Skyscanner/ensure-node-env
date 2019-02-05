@@ -19,10 +19,11 @@
 /* eslint-disable no-console */
 
 import path from 'path';
-import semver from 'semver';
 import { execSync } from 'child_process';
 import { existsSync } from 'fs';
 import { EOL } from 'os';
+
+import semver from 'semver';
 
 const { argv } = process;
 const verbose = argv.indexOf('-v') !== -1 || argv.indexOf('--verbose') !== -1;

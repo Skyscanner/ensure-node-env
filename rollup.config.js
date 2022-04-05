@@ -1,6 +1,6 @@
 import { terser } from 'rollup-plugin-terser';
-import commonjs from 'rollup-plugin-commonjs';
-import resolve from 'rollup-plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
 
 const COMMON_IMPORTS = ['path', 'child_process', 'os', 'fs'];
 const COMMON_PLUGINS = [resolve(), commonjs(), terser()];

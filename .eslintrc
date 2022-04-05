@@ -1,8 +1,9 @@
 
 {
-  "extends": "skyscanner-with-prettier",
+  "extends": "@skyscanner/skyscanner",
   "rules": {
     "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
-    "import/extensions": ["error", { "mjs": "never" }]
+    "import/extensions": ["error", { "mjs": "never" }],
+    "jest/no-deprecated-functions": "off"
   }
 }

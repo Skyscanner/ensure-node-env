@@ -48,4 +48,4 @@ npm install ensure-node-env --save-dev
 
 ## Guide
 
-Skyscanner Node development requires Node LTS and npm `^6.4.1`. [Nvm](https://github.com/creationix/nvm) users can run `nvm use` to switch to `lts/dubnium`. [Nave](https://github.com/isaacs/nave) users can use `nave auto`. You can also download Node LTS using [the website](https://nodejs.org/en/).
+Skyscanner Node development requires Node LTS and npm `^16.14.2`. [Nvm](https://github.com/creationix/nvm) users can run `nvm use` to switch to `lts/gallium`. [Nave](https://github.com/isaacs/nave) users can use `nave auto`. You can also download Node LTS using [the website](https://nodejs.org/en/).

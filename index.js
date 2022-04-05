@@ -36,7 +36,7 @@ const logger = {
   error: console.error,
 };
 
-const getVersion = ({ command, localBinFolder, global = true }) => {
+const getVersion = ({ command, global = true, localBinFolder }) => {
   const env = { ...process.env };
 
   if (global) {
@@ -45,10 +45,7 @@ const getVersion = ({ command, localBinFolder, global = true }) => {
     env.PATH = `${localBinFolder}${path.delimiter}${env.PATH}`;
   }
 
-  return execSync(command, { env })
-    .toString()
-    .replace('v', '')
-    .trim();
+  return execSync(command, { env }).toString().replace('v', '').trim();
 };
 
 const checkVersion = (engineName, command) => {
@@ -82,9 +79,7 @@ const checkVersion = (engineName, command) => {
   let localVersionValid = null;
 
   try {
-    const localBinFolder = execSync('npm bin')
-      .toString()
-      .trim();
+    const localBinFolder = execSync('npm bin').toString().trim();
 
     const hasLocalVersion = existsSync(
       `${localBinFolder}${path.sep}${engineName}`,

@@ -79,7 +79,8 @@ const checkVersion = (engineName, command) => {
   let localVersionValid = null;
 
   try {
-    const localBinFolder = execSync('npm bin').toString().trim();
+    const localRootFolder = execSync('npm root').toString().trim();
+    const localBinFolder = `${localRootFolder}${path.sep}.bin`;
 
     const hasLocalVersion = existsSync(
       `${localBinFolder}${path.sep}${engineName}`,

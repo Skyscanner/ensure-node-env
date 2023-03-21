@@ -6,13 +6,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
-- Update to support `npm bin` being removed in NPM `9.0.0`
+<!-- Unreleased changes go above this line -->
+
+# Releases
+
+## 2.0.0 - 2023-03-21
 
 ### Breaking
 - Upgraded to support `lts/gallium` (Node 16)
+- Update to support `npm bin` being removed in NPM `9.0.0`
 
 ### Fixed
 - Upgraded various development dependencies.
+
 
 ## 1.2.3 - 2019-02-05
 

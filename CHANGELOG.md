@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 # Releases
 
+## 2.1.0 - 2024-06-17
+- Added NPM `10` to list of accepted versions
+
 ## 2.0.0 - 2023-03-21
 
 ### Breaking

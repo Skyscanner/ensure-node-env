@@ -1,6 +1,6 @@
 {
   "name": "ensure-node-env",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "A script that helps ensure you have the correct node & npm versions installed in your environment.",
   "main": "./dist/index.js",
   "bin": {

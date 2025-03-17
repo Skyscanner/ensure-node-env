@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/Skyscanner/ensure-node-env.svg?branch=master)](https://travis-ci.org/Skyscanner/ensure-node-env) 
 
+⚠️ **Archived:** this package is deprecated in favour of native functionality https://docs.npmjs.com/cli/v10/using-npm/config#engine-strict
+
 A script that helps ensure you have the correct node &amp; npm versions installed globally in your environment.
 
 ## Usage
